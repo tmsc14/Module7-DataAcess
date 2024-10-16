@@ -2,28 +2,94 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.View.ViewPersonal"
-             Title="ViewPersonal">
-    <VerticalStackLayout>
+             Title="View Personal">
 
-        <Label Text="Personal Information"
-               FontSize="20"
-               HorizontalOptions="Center"/>
-        <ListView ItemsSource="{Binding PersonalList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Name}" 
-                              Detail="{Binding Gender}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        <Button Text="Load Data" Command="{Binding LoadDataCommand}"/>
-        
-        <Label x:Name=" ConnectionStatusLabel"
-               Text="{Binding StatusMessage}"
-               FontSize="18"
-               HorizontalOptions="Center"/>
+    <ContentPage.Resources>
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="#921A40" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,20,0,10" />
+        </Style>
 
-        <Button Text="Back to Main Page" Clicked="OnBackToMainPageClicked" />
-    </VerticalStackLayout>
+        <Style x:Key="PersonalListStyle" TargetType="ListView">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="HasUnevenRows" Value="True" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+        </Style>
+
+        <Style x:Key="DataFrameStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="#C75B7A" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="HasShadow" Value="True" />
+        </Style>
+
+        <Style x:Key="StatusLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="#921A40" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,20,0,0" />
+        </Style>
+
+        <Style x:Key="StyledButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#921A40" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="Personal Information"
+                   Style="{StaticResource TitleLabelStyle}" />
+
+            <ListView ItemsSource="{Binding PersonalList}"
+                      Style="{StaticResource PersonalListStyle}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Style="{StaticResource DataFrameStyle}">
+                                <StackLayout>
+                                    <Label Text="Name:"
+                                           FontSize="16"
+                                           TextColor="#F4D9D0"
+                                           FontAttributes="Italic" />
+                                    <Label Text="{Binding Name}"
+                                           FontSize="20"
+                                           TextColor="White"
+                                           FontAttributes="Bold" />
+                                    <Label Text="Gender:"
+                                           FontSize="16"
+                                           TextColor="#F4D9D0"
+                                           FontAttributes="Italic" />
+                                    <Label Text="{Binding Gender}"
+                                           FontSize="18"
+                                           TextColor="White" />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Load Data"
+                    Style="{StaticResource StyledButton}"
+                    Command="{Binding LoadDataCommand}" />
+
+            <Label x:Name="ConnectionStatusLabel"
+                   Style="{StaticResource StatusLabelStyle}"
+                   Text="{Binding StatusMessage}" />
+
+            <Button Text="Back to Main Page"
+                    Style="{StaticResource StyledButton}"
+                    Clicked="OnBackToMainPageClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

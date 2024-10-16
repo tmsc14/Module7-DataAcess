@@ -3,50 +3,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.MainPage">
 
+    <ContentPage.Resources>
+        <Style x:Key="MainPageLayout" TargetType="VerticalStackLayout">
+            <Setter Property="Padding" Value="30,0" />
+            <Setter Property="Spacing" Value="25" />
+        </Style>
+
+        <Style x:Key="MainPageImage" TargetType="Image">
+            <Setter Property="HeightRequest" Value="185" />
+            <Setter Property="Aspect" Value="AspectFit" />
+            <Setter Property="Margin" Value="0,0,0,20" />
+        </Style>
+
+        <Style x:Key="HeadlineLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="#921A40" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,20,0,20" />
+        </Style>
+
+        <Style x:Key="SubHeadlineLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextColor" Value="#C75B7A" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,25" />
+        </Style>
+
+        <Style x:Key="StatusLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="#921A40" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+
+        <Style x:Key="StyledButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#C75B7A" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+        </Style>
+
+        <Style x:Key="ConnectionButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#921A40" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="Margin" Value="0,10,0,10" />
+        </Style>
+    </ContentPage.Resources>
+
     <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Style="{StaticResource MainPageLayout}">
             <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
+                Source="sad_hamster.jpg"
+                Style="{StaticResource MainPageImage}"
                 SemanticProperties.Description="dot net bot in a race car number eight" />
 
             <Label
                 Text="Hello, World!"
-                Style="{StaticResource Headline}"
+                Style="{StaticResource HeadlineLabel}"
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Label
                 Text="Welcome to &#10;.NET Multi-platform App UI"
-                Style="{StaticResource SubHeadline}"
+                Style="{StaticResource SubHeadlineLabel}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
             <Button
                 x:Name="CounterBtn"
                 Text="Click me" 
+                Style="{StaticResource StyledButton}"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+                Clicked="OnCounterClicked" />
 
             <Label x:Name="ConnectionStatusLabel"
-                   Text=""
-                   FontSize="18"
-                   TextColor="Red"
-                   HorizontalOptions="Center"/>
+                   Style="{StaticResource StatusLabel}"
+                   Text="" />
 
             <Button Text="Test Connection"
-                    Clicked="OnTestConnectionClicked"
-                    HorizontalOptions="Fill"/>
+                    Style="{StaticResource ConnectionButton}"
+                    Clicked="OnTestConnectionClicked" />
 
             <Button Text="View Personal"
-                    Clicked="OpenViewPersonal"
-                    HorizontalOptions="Fill"/>
+                    Style="{StaticResource StyledButton}"
+                    Clicked="OpenViewPersonal" />
 
             <Button Text="View Employees" 
-                    Clicked="OnViewEmployeesClicked" 
-                    HorizontalOptions="Fill"/>
-
+                    Style="{StaticResource StyledButton}"
+                    Clicked="OnViewEmployeesClicked" />
         </VerticalStackLayout>
     </ScrollView>
 
