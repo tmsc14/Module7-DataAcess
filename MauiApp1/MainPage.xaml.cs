@@ -54,5 +54,10 @@ namespace MauiApp1
         {
             await Shell.Current.GoToAsync("//ViewPersonal");
         }
+
+        private async void OnViewEmployeesClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("///ViewEmployeePage");
+        }
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.View.ViewEmployeePage"
+             Title="View Employees">
+    <VerticalStackLayout>
+        <Label Text="Employee List" FontSize="24" HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Employees}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="Contact:" FontAttributes="Italic" />
+                            <Label Text="{Binding ContactNo}" FontSize="16" />
+                            <Label Text="Address:" FontAttributes="Italic" />
+                            <Label Text="{Binding Address}" FontSize="16" />
+                            <Label Text="Email:" FontAttributes="Italic" />
+                            <Label Text="{Binding Email}" FontSize="16" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Load Data" Command="{Binding LoadDataCommand}" />
+        <Label Text="{Binding StatusMessage}" FontSize="18" HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

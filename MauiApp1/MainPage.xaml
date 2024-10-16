@@ -43,6 +43,10 @@
                     Clicked="OpenViewPersonal"
                     HorizontalOptions="Fill"/>
 
+            <Button Text="View Employees" 
+                    Clicked="OnViewEmployeesClicked" 
+                    HorizontalOptions="Fill"/>
+
         </VerticalStackLayout>
     </ScrollView>
 

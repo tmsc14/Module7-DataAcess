@@ -18,5 +18,8 @@
         Title="ViewPersonal"
         ContentTemplate="{DataTemplate view:ViewPersonal}"
         Route="ViewPersonal"/>
-
+    <ShellContent
+        Title="View Employees"
+        ContentTemplate="{DataTemplate view:ViewEmployeePage}"
+        Route="ViewEmployeePage" />
 </Shell>
