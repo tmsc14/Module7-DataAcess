@@ -63,4 +63,10 @@
 		<PackageReference Include="MySql.Data" Version="9.1.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="View\ViewPersonal.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

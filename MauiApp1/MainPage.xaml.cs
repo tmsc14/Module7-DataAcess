@@ -1,5 +1,6 @@
-﻿using MauiApp1.Services;
-using Microsoft.Maui.Graphics; // Add this line for Colors
+﻿using System;
+using MauiApp1.Services;
+using Microsoft.Maui.Graphics;
 using MySql.Data.MySqlClient;
 
 namespace MauiApp1
@@ -12,7 +13,7 @@ namespace MauiApp1
 
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); // Ensure this method is recognized
 
             // Initialize database connection
             _dbConnectionService = new DatabaseConnectionService();
@@ -39,14 +40,19 @@ namespace MauiApp1
                 {
                     await connection.OpenAsync();
                     ConnectionStatusLabel.Text = "Connection Successful";
-                    ConnectionStatusLabel.TextColor = Colors.Green; // Update to use Colors
+                    ConnectionStatusLabel.TextColor = Colors.Green;
                 }
             }
             catch (Exception ex)
             {
                 ConnectionStatusLabel.Text = $"Connection Failed: {ex.Message}";
-                ConnectionStatusLabel.TextColor = Colors.Red; // Update to use Colors
+                ConnectionStatusLabel.TextColor = Colors.Red;
             }
+        }
+
+        private async void OpenViewPersonal(Object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//ViewPersonal");
         }
     }
 }
