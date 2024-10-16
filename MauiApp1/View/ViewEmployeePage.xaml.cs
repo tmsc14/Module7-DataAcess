@@ -9,5 +9,10 @@ namespace MauiApp1.View
             InitializeComponent();
             BindingContext = new EmployeeViewModel();
         }
+
+        private async void OnBackToMainPageClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("///MainPage");
+        }
     }
 }

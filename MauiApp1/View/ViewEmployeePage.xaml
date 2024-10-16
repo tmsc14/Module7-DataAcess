@@ -24,5 +24,7 @@
         </ListView>
         <Button Text="Load Data" Command="{Binding LoadDataCommand}" />
         <Label Text="{Binding StatusMessage}" FontSize="18" HorizontalOptions="Center" />
+
+        <Button Text="Back to Main Page" Clicked="OnBackToMainPageClicked" />
     </VerticalStackLayout>
 </ContentPage>
