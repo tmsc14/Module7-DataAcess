@@ -29,6 +29,40 @@ namespace MauiApp1.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private Personal _selectedPersonal;
+        public Personal SelectedPersonal
+        {
+            get => _selectedPersonal;
+            set
+            {
+                _selectedPersonal = value;
+                if (_selectedPersonal != null)
+                {
+                    NewPersonalName = _selectedPersonal.Name;
+                    NewPersonalGender = _selectedPersonal.Gender;
+                    NewPersonalContactNo = _selectedPersonal.ContactNo;
+                    IsPersonSelected = true;
+                }
+                else
+                {
+                    IsPersonSelected = false;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isPersonSelected;
+        public bool IsPersonSelected
+        {
+            get => _isPersonSelected;
+            set
+            {
+                _isPersonSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _statusMessage = string.Empty;
 
         public string StatusMessage
@@ -72,18 +106,32 @@ namespace MauiApp1.ViewModel
                 _newPersonalContactNo = value;
                 OnPropertyChanged();
             }
-
         }
 
         public ICommand LoadDataCommand { get; }
         public ICommand AddPersonalCommand { get; }
+        public ICommand SelectedPersonCommand { get; }
+        public ICommand DeletePersonalCommand { get; }
+
 
         public PersonalViewModel()
         {
             _personalService = new PersonalService();
             PersonalList = new ObservableCollection<Personal>();
+
+            // Initialize DeletePersonalCommand with a check on CanExecute
+            DeletePersonalCommand = new Command(
+                async () => await DeletePersonal(),
+                () => IsPersonSelected
+            );
+
             LoadDataCommand = new Command(async () => await LoadData());
             AddPersonalCommand = new Command(async () => await AddPerson());
+            SelectedPersonCommand = new Command<Personal>(person =>
+            {
+                SelectedPersonal = person;
+                ((Command)DeletePersonalCommand).ChangeCanExecute();
+            });
 
             LoadData();
         }
@@ -149,6 +197,51 @@ namespace MauiApp1.ViewModel
                 StatusMessage = $"Failed adding person: {ex.Message}";
             }
             finally { IsBusy = false; }
+        }
+
+        private async Task DeletePersonal()
+        {
+            Console.WriteLine("Delete command executed");
+
+            if (SelectedPersonal == null)
+            {
+                Console.WriteLine("Delete failed: No person selected.");
+                return;
+            }
+
+            var answer = await Application.Current.MainPage.DisplayAlert(
+                "Confirm Delete",
+                $"Are you sure you want to delete {SelectedPersonal.Name}?",
+                "Yes", "No");
+
+            if (!answer)
+            {
+                Console.WriteLine("Delete cancelled by user.");
+                return;
+            }
+
+            IsBusy = true;
+            StatusMessage = "Deleting person...";
+
+            try
+            {
+                var success = await _personalService.DeletePersonalAsync(SelectedPersonal.Id);
+                StatusMessage = success ? "Person Deleted Successfully" : "Failed to delete person";
+
+                if (success)
+                {
+                    PersonalList.Remove(SelectedPersonal);
+                    SelectedPersonal = null;
+                }
+            }
+            catch(Exception ex)
+            {
+                StatusMessage = $"Error deleting person: {ex.Message}";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

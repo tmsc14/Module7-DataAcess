@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiApp1.ViewModel"
              x:Class="MauiApp1.View.ViewPersonal"
              Title="View Personal">
+
 
     <ContentPage.Resources>
         <Style x:Key="TitleLabelStyle" TargetType="Label">
@@ -48,10 +50,12 @@
     <ScrollView>
         <VerticalStackLayout Padding="20">
             <Label Text="Personal Information"
-                   Style="{StaticResource TitleLabelStyle}" />
+                   Style="{StaticResource TitleLabelStyle}"/>
 
-            <ListView ItemsSource="{Binding PersonalList}"
-                      Style="{StaticResource PersonalListStyle}">
+            <ListView ItemsSource="{Binding PersonalList}" 
+          SelectedItem="{Binding SelectedPersonal, Mode=TwoWay}" 
+          Style="{StaticResource PersonalListStyle}">
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -72,6 +76,12 @@
                                     <Label Text="{Binding Gender}"
                                            FontSize="18"
                                            TextColor="White" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:PersonalViewModel}}, 
+                                            Path=SelectedPersonalCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                             </Frame>
                         </ViewCell>
@@ -90,6 +100,10 @@
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Button Text="Add Person" Command="{Binding AddPersonalCommand}"/>
+                <Button Text="Delete Person"
+                    Command="{Binding DeletePersonalCommand}"
+                    CommandParameter="{Binding SelectedPersonal}"
+                    IsEnabled="{Binding IsPersonSelected}"/>
             </StackLayout>
             
 

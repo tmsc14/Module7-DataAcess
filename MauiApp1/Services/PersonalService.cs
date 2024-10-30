@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MauiApp1.Model;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 
 namespace MauiApp1.Services
 {
@@ -65,6 +66,27 @@ namespace MauiApp1.Services
                 Console.WriteLine($"Error adding personal record: {ex.Message}");
                 return false;
 
+            }
+        }
+
+        public async Task<bool>DeletePersonalAsync(int id)
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(_connectionString))
+                {
+                    await conn.OpenAsync();
+                    var cmd = new MySqlCommand("DELETE FROM tblpersonal WHERE ID = @ID", conn);
+                    cmd.Parameters.AddWithValue("@ID", id);
+
+                    var result = await cmd.ExecuteNonQueryAsync();
+                    return result > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting personal record: {ex.Message}");
+                return false;
             }
         }
     }
